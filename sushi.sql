@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Фев 01 2019 г., 13:42
+-- Время создания: Фев 15 2019 г., 14:41
 -- Версия сервера: 5.6.38
 -- Версия PHP: 5.6.32
 
@@ -39,8 +39,23 @@ CREATE TABLE `cities` (
 --
 
 INSERT INTO `cities` (`id`, `name`, `subdomain`) VALUES
-(1, 'Новороссийск', ''),
-(2, 'Саратов', 'саратов');
+(1, 'Аксай', 'аксай'),
+(2, 'Анапа', 'анапа'),
+(3, 'Воронеж', 'воронеж'),
+(4, 'Геленджик', 'геленджик'),
+(5, 'Горячий Ключ', 'горячий-ключ'),
+(6, 'Краснодар', 'краснодар'),
+(7, 'Курск', 'курск'),
+(8, 'Курчатов', 'курчатов'),
+(9, 'Моздок', 'моздок'),
+(10, 'Новороссийск', ''),
+(11, 'Новочеркасск', 'новочеркасск'),
+(12, 'Ростов-на-Дону', 'ростов'),
+(13, 'Саратов', 'саратов'),
+(14, 'Станица Динская', 'динская'),
+(15, 'Тимашевск', 'тимашевск'),
+(16, 'Усть-Лабинск', 'усть-лабинск'),
+(17, 'Прохладный', 'прохладный');
 
 -- --------------------------------------------------------
 
@@ -54,6 +69,7 @@ CREATE TABLE `points` (
   `phone` varchar(20) NOT NULL,
   `time` varchar(255) NOT NULL,
   `mail` varchar(255) NOT NULL,
+  `frontpad` int(10) DEFAULT NULL,
   `city` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -61,9 +77,29 @@ CREATE TABLE `points` (
 -- Дамп данных таблицы `points`
 --
 
-INSERT INTO `points` (`id`, `address`, `phone`, `time`, `mail`, `city`) VALUES
-(1, 'ул. Мира 10', '8(988)335-95-05', 'пн-чт с 10:00 до 23:00,пт-вс с 10:00 до 24:00', 'sushi-darom@mail.ru', 1),
-(2, 'ул. Видова, 210д', '8 (967) 650-8-000', 'пн-чт с 10:00 до 23:00,пт-вс с 10:00 до 24:00', 'sushi-darom@mail.ru', 1);
+INSERT INTO `points` (`id`, `address`, `phone`, `time`, `mail`, `frontpad`, `city`) VALUES
+(1, '1', '1', '1', '1', 1, 1),
+(2, '2', '2', '2', '2', 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(10) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `auth_key` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `password`, `auth_key`) VALUES
+(1, 'admin', '$2y$13$tvR.Hk.kHdV845bS4v.AKuiIb.c31yMiYcpbD7vUhSG7zGDmttgYa', 'K1ZdOpXEs-uxOxa0GTs_ILiOQvafDgzV');
 
 --
 -- Индексы сохранённых таблиц
@@ -83,6 +119,12 @@ ALTER TABLE `points`
   ADD KEY `city` (`city`);
 
 --
+-- Индексы таблицы `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -90,13 +132,19 @@ ALTER TABLE `points`
 -- AUTO_INCREMENT для таблицы `cities`
 --
 ALTER TABLE `cities`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT для таблицы `points`
 --
 ALTER TABLE `points`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT для таблицы `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
