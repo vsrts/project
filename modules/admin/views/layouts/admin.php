@@ -40,6 +40,7 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Города', 'url' => ['/admin/cities']],
             ['label' => 'Точки', 'url' => ['/admin/points']],
+            ['label' => 'Слайды', 'url' => ['/admin/slides']],
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],

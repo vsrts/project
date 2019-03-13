@@ -30,6 +30,7 @@ class Slides extends \yii\db\ActiveRecord
     {
         return [
             [['image', 'code'], 'string', 'max' => 255],
+            [['sort'], 'int', 'unique'],
         ];
     }
 
@@ -42,6 +43,8 @@ class Slides extends \yii\db\ActiveRecord
             'id' => 'ID',
             'image' => 'Изображение',
             'code' => 'Код',
+            'sort' => 'Порядок',
+            'city' => 'Город',
         ];
     }
 
@@ -51,5 +54,10 @@ class Slides extends \yii\db\ActiveRecord
     public function getSlideOnlies()
     {
         return $this->hasMany(SlideOnly::className(), ['slide_id' => 'id']);
+    }
+    public function getCities()
+    {
+        return $this->hasMany(Cities::className(), ['id' => 'city_id'])
+            ->via('slideOnlies');
     }
 }

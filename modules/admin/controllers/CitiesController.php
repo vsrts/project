@@ -1,4 +1,4 @@
- <?php
+<?php
 
 namespace app\modules\admin\controllers;
 
@@ -43,6 +43,8 @@ class CitiesController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+
 
     /**
      * Displays a single Cities model.
