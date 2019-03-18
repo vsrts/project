@@ -1,27 +1,34 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $model app\modules\admin\models\Points */
 
-$this->title = 'Points';
+$this->title = $model->address;
+$this->params['breadcrumbs'][] = ['label' => 'Points', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="points-index">
+<div class="points-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Points', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger',
+            'data' => [
+                'confirm' => 'Are you sure you want to delete this item?',
+                'method' => 'post',
+            ],
+        ]) ?>
     </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            //'id',
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+            'id',
             //'city',
             [
                 'attribute' => 'city',
@@ -40,8 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'html',
             ],
-
-            ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
+    ]) ?>
+
 </div>
