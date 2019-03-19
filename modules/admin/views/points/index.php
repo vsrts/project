@@ -32,6 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'phone',
             'email:email',
             'address',
+            [
+                'attribute' => 'manager',
+                'value' => function($data){
+                    return $data->profile->name;
+                }
+            ],
             'filial',
             [
                 'attribute' => 'status',
