@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($user, 'username') ?>
-    <?= $form->field($user, 'password') ?>
+    <?= $form->field($user, 'new_password')->input('password') ?>
     <?= $form->field($profile, 'name') ?>
     <?= $form->field($profile, 'phone') ?>
     <?= $form->field($profile, 'type') ?>
