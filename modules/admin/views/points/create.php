@@ -6,9 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\admin\models\Points */
 
-$this->title = 'Create Points';
-$this->params['breadcrumbs'][] = ['label' => 'Points', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Добавить точку';
+
 ?>
 <div class="points-create">
 

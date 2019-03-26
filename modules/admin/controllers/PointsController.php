@@ -36,7 +36,12 @@ class PointsController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Points::find()->with('cities'),
+            'query' => Points::find(),
+            'sort'=>[
+                'defaultOrder'=>[
+                    'city'=>SORT_ASC
+                ]
+            ]
         ]);
 
         return $this->render('index', [
@@ -67,7 +72,7 @@ class PointsController extends Controller
         $model = new Points();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -87,7 +92,7 @@ class PointsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('update', [

@@ -37,6 +37,11 @@ class CitiesController extends Controller
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Cities::find(),
+            'sort'=>[
+                'defaultOrder'=>[
+                    'name'=>SORT_ASC
+                ]
+            ]
         ]);
 
         return $this->render('index', [
@@ -69,7 +74,7 @@ class CitiesController extends Controller
         $model = new Cities();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -89,7 +94,7 @@ class CitiesController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('update', [

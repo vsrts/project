@@ -31,8 +31,9 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password',], 'required'],
-            [['username', 'password', 'new_password',], 'string', 'max' => 255],
+            [['username', ], 'required'],
+            [['username', 'new_password',], 'string', 'max' => 255],
+            [['new_password'], 'required', 'on'=>'create'],
         ];
     }
 
@@ -47,7 +48,7 @@ class User extends \yii\db\ActiveRecord
             'name' => 'Имя',
             'phone' => 'Телефон',
             'type' => 'Тип пользователя',
-            'new_password' => 'Новый пароль',
+            'new_password' => 'Пароль',
         ];
     }
 

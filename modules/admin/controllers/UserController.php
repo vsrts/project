@@ -68,13 +68,31 @@ class UserController extends Controller
         $user = new User();
         $profile = new Profile();
 
-        if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post()) && $user->save() && $profile->save()) {
+        $user->scenario = 'create';
+
+        if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
+
+            $user->attributes = $user->load(Yii::$app->request->post());
+            $profile->attributes = $profile->load(Yii::$app->request->post());
+
             $isValid = $user->validate();
-            $isValid = $profile->validate() && $isValid;
-            if ($isValid) {
-                $user->save(false);
-                $profile->save(false);
-                return $this->redirect(['view', 'id' => $user->id]);
+            $transaction=Yii::$app->db->beginTransaction();
+            try {
+                if ($isValid) {
+                    $user->save(false);
+                }
+
+                $profile->user_id = $user->id;
+                $isValid = $profile->validate() && $isValid;
+
+                if ($isValid) {
+                    $profile->save(false);
+                    $transaction->commit();
+                    return $this->redirect(['index', 'id' => $user->id]);
+                }
+            }catch(Exception $e){
+                $transaction->rollBack();
+                throw $e;
             }
         }
 
@@ -82,6 +100,7 @@ class UserController extends Controller
             'user' => $user,
             'profile' => $profile,
         ]);
+
     }
 
     /**
@@ -94,7 +113,7 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $user = User::findOne($id);
-        $profile = Profile::findOne($id);
+        $profile = Profile::findOne(['user_id' => $id]);
 
         if (!isset($user, $profile)) {
             throw new NotFoundHttpException("Пользователь не найден.");
@@ -106,7 +125,7 @@ class UserController extends Controller
             if ($isValid) {
                 $user->save(false);
                 $profile->save(false);
-                return $this->redirect(['user/view', 'id' => $id]);
+                return $this->redirect(['index', 'id' => $id]);
             }
         }
 
@@ -126,6 +145,8 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+        $profile = Profile::findOne(['user_id' => $id]);
+        $profile->delete();
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

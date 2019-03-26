@@ -32,11 +32,11 @@ class Profile extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'name', 'phone'], 'required'],
+            [['user_id', 'name', 'phone', 'type'], 'required'],
             [['user_id'], 'integer'],
             [['name', 'phone', 'type'], 'string', 'max' => 255],
             [['user_id'], 'unique'],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => false, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -48,9 +48,9 @@ class Profile extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'name' => 'Name',
-            'phone' => 'Phone',
-            'type' => 'Type',
+            'name' => 'Имя',
+            'phone' => 'Телефон',
+            'type' => 'Тип пользователя',
         ];
     }
 
