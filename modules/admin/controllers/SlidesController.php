@@ -14,7 +14,7 @@ use yii\filters\VerbFilter;
 /**
  * SlidesController implements the CRUD actions for Slides model.
  */
-class SlidesController extends Controller
+class SlidesController extends AppAdminController
 {
     /**
      * {@inheritdoc}
