@@ -16,6 +16,7 @@ use Yii;
  */
 class User extends \yii\db\ActiveRecord
 {
+
     public $new_password;
     /**
      * {@inheritdoc}
@@ -31,7 +32,7 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', ], 'required'],
+            [['username', 'role'], 'required'],
             [['username', 'new_password',], 'string', 'max' => 255],
             [['new_password'], 'required', 'on'=>'create'],
         ];
@@ -47,7 +48,7 @@ class User extends \yii\db\ActiveRecord
             'password' => 'Пароль',
             'name' => 'Имя',
             'phone' => 'Телефон',
-            'type' => 'Тип пользователя',
+            'role' => 'Тип пользователя',
             'new_password' => 'Пароль',
         ];
     }

@@ -34,13 +34,7 @@ $this->title = 'Пользователи';
                     return $data->profile->phone;
                 }
             ],
-            [
-                'attribute' => 'type',
-                'value' => function($data){
-                    return $data->profile->type;
-                }
-            ],
-
+            'role',
             [
                 'class' => 'yii\grid\ActionColumn',
                 'headerOptions' => ['width' => '50'],

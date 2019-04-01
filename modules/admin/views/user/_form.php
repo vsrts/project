@@ -14,9 +14,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($user, 'username') ?>
     <?= $form->field($user, 'new_password')->input('password') ?>
+    <?= $form->field($user, 'role') ?>
     <?= $form->field($profile, 'name') ?>
     <?= $form->field($profile, 'phone') ?>
-    <?= $form->field($profile, 'type') ?>
+
 
 
 
