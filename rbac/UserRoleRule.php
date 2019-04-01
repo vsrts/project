@@ -61,16 +61,12 @@ class UserRoleRule extends Rule
     }
 
     /**
-     * Возвращает роль пользователя по его ID в случае успеха и `false`  в случае неудачи.
-     * @param integer $id ID пользователя.
-     * @return string|false
+     * Возвращает роль пользователя или `null`.
+     * @return string|null
      */
-    static public function getRoleOfUser($id)
+    public function getRole()
     {
-        return (new Query)
-            ->select('role')
-            ->from(self::tableName())
-            ->where(['id' => $id])
-            ->scalar();
+        $identity = $this->getIdentity();
+        return $identity !== null ? $identity->role : null;
     }
 }
