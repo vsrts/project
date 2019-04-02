@@ -8,6 +8,37 @@ use yii\db\Query;
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
 
+    const ROLE_SUPERUSER = 'superuser';
+    const ROLE_REGISTERED = 'registered';
+    const ROLE_GUEST = 'guest';
+
+    /**
+     * Возвращает массив всех доступных ролей.
+     * @return array
+     */
+    static public function roleArray()
+    {
+        return [
+            self::ROLE_SUPERUSER,
+            self::ROLE_REGISTERED,
+            self::ROLE_GUEST,
+        ];
+    }
+
+    /**
+     * Возвращает роль пользователя по его ID в случае успеха и `false`  в случае неудачи.
+     * @param integer $id ID пользователя.
+     * @return string|false
+     */
+    static public function getRoleOfUser($id)
+    {
+        return (new Query)
+            ->select('role')
+            ->from(self::tableName())
+            ->where(['id' => $id])
+            ->scalar();
+    }
+
     public static function tableName()
     {
         return 'user';

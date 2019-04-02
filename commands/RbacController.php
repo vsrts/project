@@ -10,6 +10,7 @@ namespace app\commands;
 
 use yii\console\Controller;
 use Yii;
+use app\rbac\UserRoleRule;
 use app\models\User;
 
 class RbacController extends Controller
