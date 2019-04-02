@@ -25,16 +25,17 @@ $config = [
             'cookieValidationKey' => 'kgJ7sHJ8qh7kRtXlUgS9qIv05NttsvkX',
             'baseUrl' => '',
         ],
-        'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
-        ],
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',
             'itemFile' => '@app/rbac/items.php',
             'ruleFile' => '@app/rbac/rules.php',
             'assignmentFile' => '@app/rbac/assignments.php', // назначения придется указать, потому что того требуют каноны церкви
-            'defaultRoles' => ['superuser', 'registered', 'guest',],
+            'defaultRoles' =>['superuser', 'registered', 'guest'],
+        ],
+        'user' => [
+            'class' => 'app\components\User',
+            'identityClass' => 'app\models\User',
+            'enableAutoLogin' => true,
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',

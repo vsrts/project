@@ -44,7 +44,7 @@ class UserRoleRule extends Rule
         $user = Yii::$app->user;
         if ($userId === null) {
             if ($user->isGuest) {
-                return Users::ROLE_GUEST;
+                return User::ROLE_GUEST;
             }
             return false;
         }
@@ -60,13 +60,4 @@ class UserRoleRule extends Rule
         return $this->_assignments[$userId];
     }
 
-    /**
-     * Возвращает роль пользователя или `null`.
-     * @return string|null
-     */
-    public function getRole()
-    {
-        $identity = $this->getIdentity();
-        return $identity !== null ? $identity->role : null;
-    }
 }
