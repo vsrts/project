@@ -8,9 +8,9 @@ use yii\db\Query;
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
 
-    const ROLE_SUPERUSER = 'superuser';
-    const ROLE_REGISTERED = 'registered';
-    const ROLE_GUEST = 'guest';
+    const ROLE_ROOT = 'root';
+    const ROLE_ADMIN = 'admin';
+    const ROLE_MANAGER = 'manager';
 
     /**
      * Возвращает массив всех доступных ролей.
@@ -19,9 +19,9 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     static public function roleArray()
     {
         return [
-            self::ROLE_SUPERUSER,
-            self::ROLE_REGISTERED,
-            self::ROLE_GUEST,
+            self::ROLE_ROOT,
+            self::ROLE_ADMIN,
+            self::ROLE_MANAGER,
         ];
     }
 

@@ -23,17 +23,18 @@ class RbacController extends Controller
         $userRoleRule = new UserRoleRule;
         $auth->add($userRoleRule);
 
-        $superuser = $auth->createRole(User::ROLE_SUPERUSER);
-        $superuser->ruleName = $userRoleRule->name;
-        $auth->add($superuser);
-        $registered = $auth->createRole(User::ROLE_REGISTERED);
-        $registered->ruleName = $userRoleRule->name;
-        $auth->add($registered);
-        $guest = $auth->createRole(User::ROLE_GUEST);
-        $guest->ruleName = $userRoleRule->name;
-        $auth->add($guest);
+        $root = $auth->createRole(User::ROLE_ROOT);
+        $root->ruleName = $userRoleRule->name;
+        $auth->add($root);
+        $admin = $auth->createRole(User::ROLE_ADMIN);
+        $admin->ruleName = $userRoleRule->name;
+        $auth->add($admin);
+        $manager = $auth->createRole(User::ROLE_MANAGER);
+        $manager->ruleName = $userRoleRule->name;
+        $auth->add($manager);
 
-        $auth->addChild($registered, $guest);
-        $auth->addChild($superuser, $registered);
+
+        $auth->addChild($admin, $manager);
+        $auth->addChild($root, $admin);
     }
 }

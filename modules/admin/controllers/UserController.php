@@ -8,7 +8,7 @@ use app\modules\admin\models\Profile;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\ForbiddenHttpException;
+use yii\filters\AccessControl;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -21,6 +21,15 @@ class UserController extends AppAdminController
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['admin']
+                    ],
+                ]
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -36,9 +45,6 @@ class UserController extends AppAdminController
      */
     public function actionIndex()
     {
-        if (!\Yii::$app->user->can('guest')) {
-            throw new ForbiddenHttpException('Access denied');
-        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => User::find(),

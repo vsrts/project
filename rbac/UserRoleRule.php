@@ -22,14 +22,14 @@ class UserRoleRule extends Rule
     {
         if ($role = $this->userRole($user)) {
             switch ($item->name) {
-                case User::ROLE_SUPERUSER:
-                    return $role == User::ROLE_SUPERUSER;
+                case User::ROLE_ROOT:
+                    return $role == User::ROLE_ROOT;
 
-                case User::ROLE_REGISTERED:
-                    return $role == User::ROLE_SUPERUSER || $role == User::ROLE_REGISTERED;
+                case User::ROLE_ADMIN:
+                    return $role == User::ROLE_ROOT || $role == User::ROLE_ADMIN;
 
-                case User::ROLE_GUEST:
-                    return in_array($role, [User::ROLE_SUPERUSER, User::ROLE_REGISTERED, User::ROLE_GUEST]);
+                case User::ROLE_MANAGER:
+                    return in_array($role, [User::ROLE_ROOT, User::ROLE_ADMIN, User::ROLE_MANAGER]);
             }
         }
         return false;
@@ -42,12 +42,12 @@ class UserRoleRule extends Rule
     protected function userRole($userId)
     {
         $user = Yii::$app->user;
-        if ($userId === null) {
-            if ($user->isGuest) {
-                return User::ROLE_GUEST;
-            }
-            return false;
-        }
+//        if ($userId === null) {
+//            if ($user->isGuest) {
+//                return User::ROLE_GUEST;
+//            }
+//            return false;
+//        }
         if (!isset($this->_assignments[$userId])) {
             $role = false;
             if (!$user->isGuest && $user->id == $userId) {

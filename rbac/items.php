@@ -1,20 +1,20 @@
 <?php
 return [
-    'superuser' => [
+    'root' => [
         'type' => 1,
         'ruleName' => 'userRole',
         'children' => [
-            'registered',
+            'admin',
         ],
     ],
-    'registered' => [
+    'admin' => [
         'type' => 1,
         'ruleName' => 'userRole',
         'children' => [
-            'guest',
+            'manager',
         ],
     ],
-    'guest' => [
+    'manager' => [
         'type' => 1,
         'ruleName' => 'userRole',
     ],
