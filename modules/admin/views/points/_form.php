@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'manager')->dropDownList(\yii\helpers\ArrayHelper::map(\app\modules\admin\models\Profile::find()->all(), 'id', 'name')) ?>
+    <?= $form->field($model, 'manager')->dropDownList(\yii\helpers\ArrayHelper::map(\app\modules\admin\models\Profile::find()->all(), 'user_id', 'name')) ?>
 
     <?= $form->field($model, 'filial')->textInput() ?>
 

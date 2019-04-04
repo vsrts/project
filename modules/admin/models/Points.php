@@ -67,6 +67,6 @@ class Points extends \yii\db\ActiveRecord
 
     public function getProfile()
     {
-        return $this->hasOne(Profile::className(), ['id' => 'manager']);
+        return $this->hasOne(Profile::className(), ['user_id' => 'manager']);
     }
 }

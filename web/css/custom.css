@@ -1,0 +1,11 @@
+/*.point-list, .point-list-content{*/
+    /*display: inline-block;*/
+    /*vertical-align: top;*/
+/*}*/
+.profile-points{
+    display: flex;
+}
+.point-list-content{
+    padding-left: 20px;
+    border-left: 1px solid blue;
+}
