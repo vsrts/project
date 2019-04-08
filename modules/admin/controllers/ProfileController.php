@@ -12,9 +12,7 @@ class ProfileController extends AppAdminController
 
     public function actionIndex(){
         $profile = Profile::findOne(['user_id' => Yii::$app->user->getId()]);
-
         $points = Points::find()->with('cities')->where(['manager' => Yii::$app->user->getId()])->all();
-
 
 
         if ($profile->load(Yii::$app->request->post())) {
@@ -27,7 +25,16 @@ class ProfileController extends AppAdminController
         return $this->render('index', compact('profile', 'points'));
     }
 
-    public function actionSave(){
-         //тут создаём модель на основе сохраненной формы и сохраняем
+    public function actionSave($id){
+
+        $point = Points::findOne($id);
+
+        if ($point->load(Yii::$app->request->post())) {
+            $isValid = $point->validate();
+            if ($isValid) {
+                $point->save(false);
+                return $this->redirect(['index']);
+            }
+        }
     }
 }

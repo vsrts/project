@@ -21,6 +21,7 @@ $this->title = "Страница управляющего";
 
 
 
+
 <div class="profile-points">
     <!-- Nav tabs -->
     <ul class="nav nav-pills nav-stacked point-list">
@@ -32,10 +33,12 @@ $this->title = "Страница управляющего";
 
     <!-- Tab panes -->
     <div class="tab-content point-list-content">
-        <div class="tab-pane active" id="home">Вы управляющий перечисленных слева точек, выберите одну из них и внесите необходимые изменения, после не забудьте нажать "СохранитьЭ</div>
+        <div class="tab-pane active" id="home">Вы управляющий перечисленных слева точек, выберите одну из них и внесите необходимые изменения, после не забудьте нажать "Сохранить"</div>
         <?php foreach($points as $point) : ?>
             <div class="tab-pane" id="<?= $point->id; ?>">
-
+                <?= $this->render('save', [
+                    'point' => $point,
+                ]) ?>
             </div>
         <?php endforeach; ?>
     </div>
@@ -43,7 +46,7 @@ $this->title = "Страница управляющего";
 
 <?php
 
-echo "<pre>";
-print_r($points);
-echo "</pre>";
+//echo "<pre>";
+//print_r($points);
+//echo "</pre>";
 

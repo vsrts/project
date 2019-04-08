@@ -30,8 +30,10 @@ $this->title = 'Точки';
                 }
             ],
             'phone',
+            'second_phone',
             'email:email',
             'address',
+            'time',
             [
                 'attribute' => 'manager',
                 'value' => function($data){
