@@ -42,6 +42,16 @@ $this->title = 'Точки';
             ],
             'filial',
             [
+                'attribute' => 'points',
+                'value' => function($data){
+                    $listCategories = "";
+                    foreach($data->categories as $category){
+                        $listCategories .= $category->name . ", ";
+                    }
+                    return $listCategories;
+                }
+            ],
+            [
                 'attribute' => 'status',
                 'value' => function($data){
                     return !$data->status ? '<span class="text-danger">Выключен</span>' : '<span class="text-success">Включен</span>';

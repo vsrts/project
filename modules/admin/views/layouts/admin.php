@@ -42,6 +42,7 @@ AppAsset::register($this);
             ['label' => 'Точки', 'url' => ['/admin/points']],
             ['label' => 'Слайды', 'url' => ['/admin/slides']],
             ['label' => 'Пользователи', 'url' => ['/admin/user']],
+            ['label' => 'Категории', 'url' => ['/admin/categories']],
             Yii::$app->user->isGuest ? (
             ['label' => 'Login', 'url' => ['/admin']]
             ) : (

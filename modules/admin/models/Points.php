@@ -56,6 +56,7 @@ class Points extends \yii\db\ActiveRecord
             'manager' => 'Управляющий',
             'filial' => 'ID филиала',
             'status' => 'Статус',
+            'points' => 'Активные категории'
         ];
     }
 
@@ -70,5 +71,15 @@ class Points extends \yii\db\ActiveRecord
     public function getProfile()
     {
         return $this->hasOne(Profile::className(), ['user_id' => 'manager']);
+    }
+
+    public function getPointCategories(){
+        return $this->hasMany(PointCategories::className(), ['point_id' => 'id']);
+    }
+
+    public function getCategories()
+    {
+        return $this->hasMany(Categories::className(), ['id' => 'category_id'])
+            ->via('pointCategories');
     }
 }
