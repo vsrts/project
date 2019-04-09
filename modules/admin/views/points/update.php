@@ -14,6 +14,7 @@ $this->title = 'Изменить точку: ' . $model->address;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'categories' => $categories,
     ]) ?>
 
 </div>

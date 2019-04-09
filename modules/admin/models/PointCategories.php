@@ -48,6 +48,7 @@ class PointCategories extends \yii\db\ActiveRecord
             'point_id' => 'Point ID',
             'category_id' => 'Category ID',
             'status' => 'Status',
+            'categories' => 'Доступные категории',
         ];
     }
 

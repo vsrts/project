@@ -2,8 +2,10 @@
 
 namespace app\modules\admin\controllers;
 
+use app\modules\admin\models\PointCategories;
 use Yii;
 use app\modules\admin\models\Points;
+use app\modules\admin\models\Categories;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -15,6 +17,7 @@ use yii\filters\AccessControl;
  */
 class PointsController extends AppAdminController
 {
+
     /**
      * {@inheritdoc}
      */
@@ -100,13 +103,18 @@ class PointsController extends AppAdminController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $categories = Categories::find()->all();
+        $pointCategories = PointCategories::find()->where(['point_id' => $id])->column();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->id]);
+//            echo "<pre>";
+//            print_r(Yii::$app->request->post()['Points']['categories']);
+//            echo "</pre>";
+            //return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'model' => $model, 'categories' => $categories, 'pointCategories' => $pointCategories,
         ]);
     }
 

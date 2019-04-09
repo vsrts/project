@@ -1,12 +1,35 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\admin\models\Points */
 /* @var $form yii\widgets\ActiveForm */
+
+//echo "<pre>";
+//print_r($pointCategories());
+//echo "</pre>";
+//$checked = [];
+//foreach($model->categories as $category){
+//    $checked[$category->id] = $category->name;
+//}
+//
+//echo "<pre>";
+//print_r($checked);
+//echo "</pre>";
+$cats = [];
+foreach($categories as $category){
+    $cats[$category->id] = $category->name;
+}
+
+echo "<pre>";
+print_r($cats);
+echo "</pre>";
+
 ?>
+
+
 
 <div class="points-form">
 
@@ -30,6 +53,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status')->dropDownList(['0' => 'Выключен', '1' => 'Включен',]) ?>
 
+    <?= $form->field($model, 'categories')->checkboxList($cats) ?>
+
+
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
         <?= Html::a('Отмена', ['index'], ['class'=>'btn btn-primary']) ?>
@@ -38,3 +64,4 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+

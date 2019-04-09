@@ -19,6 +19,7 @@ use Yii;
  */
 class Points extends \yii\db\ActiveRecord
 {
+
     /**
      * {@inheritdoc}
      */
@@ -56,7 +57,8 @@ class Points extends \yii\db\ActiveRecord
             'manager' => 'Управляющий',
             'filial' => 'ID филиала',
             'status' => 'Статус',
-            'points' => 'Активные категории'
+            'points' => 'Активные категории',
+            'categories' => 'Доступные категории'
         ];
     }
 
@@ -73,6 +75,8 @@ class Points extends \yii\db\ActiveRecord
         return $this->hasOne(Profile::className(), ['user_id' => 'manager']);
     }
 
+    private $_pointCategories;
+
     public function getPointCategories(){
         return $this->hasMany(PointCategories::className(), ['point_id' => 'id']);
     }
@@ -82,4 +86,5 @@ class Points extends \yii\db\ActiveRecord
         return $this->hasMany(Categories::className(), ['id' => 'category_id'])
             ->via('pointCategories');
     }
+
 }
