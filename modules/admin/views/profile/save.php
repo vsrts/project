@@ -11,10 +11,11 @@ use yii\helpers\Url;
         'action' => Url::to(['profile/save/?id=' . $point->id]),
     ]); ?>
 
-    <?= $form->field($point, 'status') ?>
+    <?= $form->field($point, 'status')->dropDownList(['0' => 'Выключен', '1' => 'Включен',]) ?>
     <?= $form->field($point, 'phone') ?>
     <?= $form->field($point, 'second_phone') ?>
     <?= $form->field($point, 'time') ?>
+    <?= $form->field($point, 'categoriesArray')->checkboxList(\yii\helpers\ArrayHelper::map(\app\modules\admin\models\Categories::find()->all(), 'id', 'name')) ?>
 
 
     <div class="form-group">
