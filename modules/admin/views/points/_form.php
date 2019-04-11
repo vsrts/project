@@ -7,26 +7,6 @@ use yii\bootstrap\ActiveForm;
 /* @var $model app\modules\admin\models\Points */
 /* @var $form yii\widgets\ActiveForm */
 
-//echo "<pre>";
-//print_r($pointCategories());
-//echo "</pre>";
-//$checked = [];
-//foreach($model->categories as $category){
-//    $checked[$category->id] = $category->name;
-//}
-//
-//echo "<pre>";
-//print_r($checked);
-//echo "</pre>";
-$cats = [];
-foreach($categories as $category){
-    $cats[$category->id] = $category->name;
-}
-
-echo "<pre>";
-print_r($cats);
-echo "</pre>";
-
 ?>
 
 
@@ -53,7 +33,7 @@ echo "</pre>";
 
     <?= $form->field($model, 'status')->dropDownList(['0' => 'Выключен', '1' => 'Включен',]) ?>
 
-    <?= $form->field($model, 'categories')->checkboxList($cats) ?>
+    <?= $form->field($model, 'categoriesArray')->checkboxList(\yii\helpers\ArrayHelper::map(\app\modules\admin\models\Categories::find()->all(), 'id', 'name')) ?>
 
 
     <div class="form-group">

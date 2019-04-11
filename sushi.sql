@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 09 2019 г., 15:26
+-- Время создания: Апр 11 2019 г., 15:09
 -- Версия сервера: 5.6.38
 -- Версия PHP: 5.6.32
 
@@ -159,22 +159,19 @@ INSERT INTO `points` (`id`, `city`, `phone`, `second_phone`, `email`, `address`,
 --
 
 CREATE TABLE `point_categories` (
-  `id` int(11) NOT NULL,
   `point_id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1'
+  `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `point_categories`
 --
 
-INSERT INTO `point_categories` (`id`, `point_id`, `category_id`, `status`) VALUES
-(3, 3, 1, 1),
-(7, 3, 2, 1),
-(8, 3, 3, 1),
-(11, 3, 4, 1),
-(12, 3, 17, 1);
+INSERT INTO `point_categories` (`point_id`, `category_id`) VALUES
+(3, 2),
+(3, 3),
+(3, 4),
+(3, 5);
 
 -- --------------------------------------------------------
 
@@ -288,9 +285,9 @@ ALTER TABLE `points`
 -- Индексы таблицы `point_categories`
 --
 ALTER TABLE `point_categories`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`point_id`,`category_id`),
   ADD KEY `point_id` (`point_id`,`category_id`),
-  ADD KEY `category_id` (`category_id`);
+  ADD KEY `point_categories_ibfk_2` (`category_id`);
 
 --
 -- Индексы таблицы `profile`
@@ -342,12 +339,6 @@ ALTER TABLE `points`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
--- AUTO_INCREMENT для таблицы `point_categories`
---
-ALTER TABLE `point_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
 -- AUTO_INCREMENT для таблицы `profile`
 --
 ALTER TABLE `profile`
@@ -386,14 +377,14 @@ ALTER TABLE `points`
 -- Ограничения внешнего ключа таблицы `point_categories`
 --
 ALTER TABLE `point_categories`
-  ADD CONSTRAINT `point_categories_ibfk_1` FOREIGN KEY (`point_id`) REFERENCES `points` (`id`),
-  ADD CONSTRAINT `point_categories_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
+  ADD CONSTRAINT `point_categories_ibfk_1` FOREIGN KEY (`point_id`) REFERENCES `points` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `point_categories_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `profile`
 --
 ALTER TABLE `profile`
-  ADD CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `slide_only`

@@ -36,6 +36,7 @@ class Points extends \yii\db\ActiveRecord
         return [
             [['city', 'phone', 'time', 'email', 'address', 'filial', 'manager'], 'required'],
             [['city', 'filial', 'status', 'manager'], 'integer'],
+            [['categoriesArray'], 'safe'],
             [['phone', 'second_phone', 'email', 'address', 'time'], 'string', 'max' => 255],
             [['city'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['city' => 'id']],
         ];
@@ -58,7 +59,7 @@ class Points extends \yii\db\ActiveRecord
             'filial' => 'ID филиала',
             'status' => 'Статус',
             'points' => 'Активные категории',
-            'categories' => 'Доступные категории'
+            'categoriesArray' => 'Доступные категории'
         ];
     }
 
@@ -69,13 +70,15 @@ class Points extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Cities::className(), ['id' => 'city']);
     }
+//    public function getManager0()
+//    {
+//        return $this->hasOne(User::className(), ['id' => 'manager']);
+//    }
 
     public function getProfile()
     {
         return $this->hasOne(Profile::className(), ['user_id' => 'manager']);
     }
-
-    private $_pointCategories;
 
     public function getPointCategories(){
         return $this->hasMany(PointCategories::className(), ['point_id' => 'id']);
@@ -83,8 +86,44 @@ class Points extends \yii\db\ActiveRecord
 
     public function getCategories()
     {
-        return $this->hasMany(Categories::className(), ['id' => 'category_id'])
-            ->via('pointCategories');
+        return $this->hasMany(Categories::className(), ['id' => 'category_id'])->viaTable('point_categories', ['point_id' => 'id']);
+    }
+
+    private $_categoriesArray;
+
+    public function getCategoriesArray()
+    {
+        if($this->_categoriesArray === null){
+            $this->_categoriesArray = $this->getCategories()->select('id')->column();
+        }
+        return $this->_categoriesArray;
+    }
+
+    public function setCategoriesArray($value){
+        return $this->_categoriesArray = (array)$value;
+    }
+
+    public function afterSave($insert, $changedAttributes){
+        $this->updateCategories();
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    private function updateCategories(){
+        $currentCategoriesIds = $this->getCategories()->select('id')->column();
+        $newCategoriesIds = $this->getCategoriesArray();
+
+        foreach (array_filter(array_diff($newCategoriesIds, $currentCategoriesIds)) as $categoriesId){
+            if($categories = Categories::findOne($categoriesId)){
+                $this->link('categories', $categories);
+            }
+        }
+
+        foreach (array_filter(array_diff($currentCategoriesIds, $newCategoriesIds)) as $categoriesId){
+            if($categories = Categories::findOne($categoriesId)){
+                $this->unlink('categories', $categories, true);
+            }
+        }
+
     }
 
 }

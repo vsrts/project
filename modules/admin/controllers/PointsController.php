@@ -49,7 +49,7 @@ class PointsController extends AppAdminController
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Points::find(),
+            'query' => Points::find()->with('cities', 'profile', 'categories'),
             'sort'=>[
                 'defaultOrder'=>[
                     'city'=>SORT_ASC
@@ -103,18 +103,13 @@ class PointsController extends AppAdminController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $categories = Categories::find()->all();
-        $pointCategories = PointCategories::find()->where(['point_id' => $id])->column();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-//            echo "<pre>";
-//            print_r(Yii::$app->request->post()['Points']['categories']);
-//            echo "</pre>";
-            //return $this->redirect(['index', 'id' => $model->id]);
+            return $this->redirect(['update', 'id' => $model->id]);
         }
 
         return $this->render('update', [
-            'model' => $model, 'categories' => $categories, 'pointCategories' => $pointCategories,
+            'model' => $model,
         ]);
     }
 
