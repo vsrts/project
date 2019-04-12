@@ -4,18 +4,15 @@ namespace app\modules\admin\controllers;
 
 use Yii;
 use app\modules\admin\models\Slides;
-use app\modules\admin\models\SlideOnly;
-use app\modules\admin\models\Cities;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
 
 /**
  * SlidesController implements the CRUD actions for Slides model.
  */
-class SlidesController extends AppAdminController
+class SlidesController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -23,15 +20,6 @@ class SlidesController extends AppAdminController
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['admin']
-                    ],
-                ]
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -47,24 +35,87 @@ class SlidesController extends AppAdminController
      */
     public function actionIndex()
     {
-        $slides = Slides::find()
-            ->select('slides.*')
-           ->leftJoin('slide_only', 'slide_only.slide_id=slides.id' )
-            ->leftJoin('cities', 'slide_only.city_id=cities.id')
-            ->with('cities')
-            ->all();
-        $cities = Cities::find()->all();
-        return $this->render('index', compact('slides', 'cities'));
+        $dataProvider = new ActiveDataProvider([
+            'query' => Slides::find(),
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
+    /**
+     * Displays a single Slides model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    /**
+     * Creates a new Slides model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new Slides();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index', 'id' => $model->id]);
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing Slides model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index', 'id' => $model->id]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing Slides model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionDelete($id)
     {
-        $onlyModel = SlideOnly::find()->where(['slide_id' => $id])->one();
-        $onlyModel->delete();
         $this->findModel($id)->delete();
+
         return $this->redirect(['index']);
     }
 
+    /**
+     * Finds the Slides model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Slides the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     protected function findModel($id)
     {
         if (($model = Slides::findOne($id)) !== null) {
@@ -73,5 +124,4 @@ class SlidesController extends AppAdminController
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
 }
