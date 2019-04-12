@@ -13,7 +13,11 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($user, 'username') ?>
+<<<<<<< HEAD
     <?= $form->field($user, 'password')->input('password') ?>
+=======
+    <?= $form->field($user, 'new_password')->input('password') ?>
+>>>>>>> 23301e2bf623a693e6b6e25541a951e9c8236177
     <?= $form->field($profile, 'name') ?>
     <?= $form->field($profile, 'phone') ?>
     <?= $form->field($profile, 'type') ?>
@@ -21,7 +25,7 @@ use yii\widgets\ActiveForm;
 
 
     <div class="form-group">
-        <?= Html::submitButton('Update', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

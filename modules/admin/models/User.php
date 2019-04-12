@@ -16,6 +16,7 @@ use Yii;
  */
 class User extends \yii\db\ActiveRecord
 {
+    public $new_password;
     /**
      * {@inheritdoc}
      */
@@ -30,8 +31,8 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password'], 'required'],
-            [['username', 'password'], 'string', 'max' => 255],
+            [['username', 'password',], 'required'],
+            [['username', 'password', 'new_password',], 'string', 'max' => 255],
         ];
     }
 
@@ -46,8 +47,19 @@ class User extends \yii\db\ActiveRecord
             'name' => 'Имя',
             'phone' => 'Телефон',
             'type' => 'Тип пользователя',
+            'new_password' => 'Новый пароль',
         ];
     }
+
+    public function beforeSave()
+    {
+            if ($this->new_password)
+            {
+                $this->password = \Yii::$app->security->generatePasswordHash($this->new_password);
+            }
+            return true;
+    }
+
 
     /**
      * @return \yii\db\ActiveQuery
