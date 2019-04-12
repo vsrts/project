@@ -77,16 +77,6 @@ class UserController extends AppAdminController
     {
         $user = new User();
         $profile = new Profile();
-<<<<<<< HEAD
-
-        if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post()) && $user->save() && $profile->save()) {
-            $isValid = $user->validate();
-            $isValid = $profile->validate() && $isValid;
-            if ($isValid) {
-                $user->save(false);
-                $profile->save(false);
-                return $this->redirect(['view', 'id' => $user->id]);
-=======
 
         $user->scenario = 'create';
 
@@ -113,7 +103,6 @@ class UserController extends AppAdminController
             }catch(Exception $e){
                 $transaction->rollBack();
                 throw $e;
->>>>>>> 36cc9083d0fef92da4b0d14150e1f2d91c00595c
             }
         }
 
