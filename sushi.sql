@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 11 2019 г., 15:09
+-- Время создания: Апр 12 2019 г., 15:18
 -- Версия сервера: 5.6.38
 -- Версия PHP: 5.6.32
 
@@ -52,8 +52,7 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 (12, 'Салаты'),
 (13, 'Супы'),
 (14, 'Бургеры'),
-(15, 'Напитки'),
-(17, 'тест');
+(15, 'Напитки');
 
 -- --------------------------------------------------------
 
@@ -129,7 +128,7 @@ INSERT INTO `points` (`id`, `city`, `phone`, `second_phone`, `email`, `address`,
 (13, 6, '8 (800) 555-24-08', NULL, 'sd-krasnodar1@yandex.ru', 'ул. Комарова, 21/1', NULL, 2, 1, 1),
 (14, 6, '8 (800) 555-24-08', NULL, 'sd-krasnodar1@yandex.ru', 'ул. Тюляева, 9/1', NULL, 2, 1, 1),
 (15, 7, '8 (4712) 550-580', NULL, 'kursk@суши-даром.рф', 'ул. Бойцов 9 дивизии 185Ж', NULL, 1, 1, 1),
-(16, 7, '8 (4712) 550-590', NULL, 'kursk@суши-даром.рф', 'пр-т Анатолия Дериглазова, 19', NULL, 1, 1, 1),
+(16, 7, '8 (4712) 550-590', '', 'kursk@суши-даром.рф', 'пр-т Анатолия Дериглазова, 19', '123', 1, 1, 1),
 (17, 8, '8(4712)550-540', NULL, 'kurchatov@суши-даром.рф', 'ул. Энергетиков, 12а', NULL, 1, 1, 1),
 (18, 9, '8(938)863-22-85', NULL, 'mozdok@суши-даром.рф', 'ул. Армянская 14', NULL, 1, 1, 1),
 (19, 10, '8 (800) 550-53-49', NULL, 'sushi-darom@mail.ru', 'ул. Мира 10', NULL, 1, 1, 1),
@@ -146,7 +145,7 @@ INSERT INTO `points` (`id`, `city`, `phone`, `second_phone`, `email`, `address`,
 (30, 13, '8 (8452) 939-711', NULL, 'sushidarom64@yandex.ru', 'пр-т 50 Лет Октября, 69', NULL, 1, 1, 1),
 (31, 13, '8 (8452) 931-322', NULL, 'sushidarom64@yandex.ru', 'ул.Пономарева д.9/14', NULL, 1, 1, 1),
 (32, 13, '8 (8452) 930-080', NULL, 'sushidarom64@yandex.ru', 'ул. Большая Садовая, д. 141', NULL, 1, 1, 1),
-(33, 14, '8(918)355-75-05', NULL, 'stanitsdinskaya@yandex.ru', 'ул. Красная 64', NULL, 1, 1, 1),
+(33, 14, '8(918)355-75-05', '', 'stanitsdinskaya@yandex.ru', 'ул. Красная 64', '123', 1, 1, 1),
 (34, 19, '8 (989) 5000-141', NULL, 'taganrog@суши-даром.рф', 'пер. Спартаковский, 1а', NULL, 1, 1, 1),
 (35, 15, '8 (967) 673-2-444', NULL, 'timashevsk@суши-даром.рф', 'ул. Колесникова 40а', NULL, 1, 1, 1),
 (36, 16, '8(928)435-18-08', NULL, 'ustlabinsk@суши-даром.рф', 'ул. Красная, 291', NULL, 1, 1, 1),
@@ -171,7 +170,13 @@ INSERT INTO `point_categories` (`point_id`, `category_id`) VALUES
 (3, 2),
 (3, 3),
 (3, 4),
-(3, 5);
+(16, 4),
+(3, 5),
+(16, 5),
+(3, 6),
+(16, 6),
+(33, 11),
+(33, 12);
 
 -- --------------------------------------------------------
 
@@ -212,28 +217,65 @@ CREATE TABLE `slides` (
 --
 
 INSERT INTO `slides` (`id`, `image`, `code`, `sort`) VALUES
-(1, '/images/slide/decsite.jpg', NULL, 2),
-(2, '/images/slide/decsite2.jpg', NULL, 3);
+(1, '/images/slide/decsite.jpg', '', 2),
+(2, '/images/slide/decsite2.jpg', '', 3);
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `slide_only`
+-- Структура таблицы `slides_cities`
 --
 
-CREATE TABLE `slide_only` (
-  `id` int(11) NOT NULL,
-  `slide_id` int(10) NOT NULL,
-  `city_id` int(10) DEFAULT '0'
+CREATE TABLE `slides_cities` (
+  `slides_id` int(11) NOT NULL,
+  `cities_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `slide_only`
+-- Дамп данных таблицы `slides_cities`
 --
 
-INSERT INTO `slide_only` (`id`, `slide_id`, `city_id`) VALUES
-(5, 1, 0),
-(6, 2, 0);
+INSERT INTO `slides_cities` (`slides_id`, `cities_id`) VALUES
+(1, 1),
+(2, 1),
+(1, 2),
+(2, 2),
+(1, 3),
+(2, 3),
+(1, 4),
+(2, 4),
+(1, 5),
+(2, 5),
+(1, 6),
+(2, 6),
+(1, 7),
+(2, 7),
+(1, 8),
+(2, 8),
+(1, 9),
+(2, 9),
+(1, 10),
+(2, 10),
+(1, 11),
+(2, 11),
+(1, 12),
+(2, 12),
+(1, 13),
+(2, 13),
+(1, 14),
+(2, 14),
+(1, 15),
+(2, 15),
+(1, 16),
+(2, 16),
+(1, 17),
+(2, 17),
+(1, 19),
+(2, 19),
+(1, 20),
+(2, 20),
+(1, 21),
+(2, 21);
 
 -- --------------------------------------------------------
 
@@ -254,8 +296,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `role`, `auth_key`) VALUES
-(1, 'admin', '$2y$13$5lPoOl3z0EcN6MK5duNCTu9/x0wCMqHPB1FyTmTsPhZIUdDt8rxj.', 'root', 'rBqmKtaynuMeSXtkO-F5Llo9gcJ-U-M8'),
-(2, 'vasya', '$2y$13$JN20QJ74DufiBNdEXeCwJ.5FRebi5WhC1YtRDi0fh7c9YJlklCz.W', 'manager', '_vYQ2Nga8H9hQ6jO9I6LWRWMr9MUzRum');
+(1, 'admin', '$2y$13$5lPoOl3z0EcN6MK5duNCTu9/x0wCMqHPB1FyTmTsPhZIUdDt8rxj.', 'root', 'Uxy-daXGQzG2I4ZNzVmmUGJvC_G5JQZu'),
+(2, 'vasya', '$2y$13$JN20QJ74DufiBNdEXeCwJ.5FRebi5WhC1YtRDi0fh7c9YJlklCz.W', 'manager', '4f4NctM0Ta0XsaS71YjWktC7JbvsdAsW');
 
 --
 -- Индексы сохранённых таблиц
@@ -303,12 +345,12 @@ ALTER TABLE `slides`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `slide_only`
+-- Индексы таблицы `slides_cities`
 --
-ALTER TABLE `slide_only`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `slide_id` (`slide_id`),
-  ADD KEY `city_id` (`city_id`);
+ALTER TABLE `slides_cities`
+  ADD PRIMARY KEY (`slides_id`,`cities_id`),
+  ADD KEY `cities_id` (`cities_id`),
+  ADD KEY `slides_id` (`slides_id`);
 
 --
 -- Индексы таблицы `user`
@@ -324,7 +366,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT для таблицы `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT для таблицы `cities`
@@ -349,12 +391,6 @@ ALTER TABLE `profile`
 --
 ALTER TABLE `slides`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT для таблицы `slide_only`
---
-ALTER TABLE `slide_only`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `user`
@@ -387,10 +423,11 @@ ALTER TABLE `profile`
   ADD CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
 
 --
--- Ограничения внешнего ключа таблицы `slide_only`
+-- Ограничения внешнего ключа таблицы `slides_cities`
 --
-ALTER TABLE `slide_only`
-  ADD CONSTRAINT `slide_only_ibfk_1` FOREIGN KEY (`slide_id`) REFERENCES `slides` (`id`);
+ALTER TABLE `slides_cities`
+  ADD CONSTRAINT `slides_cities_ibfk_1` FOREIGN KEY (`cities_id`) REFERENCES `cities` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `slides_cities_ibfk_2` FOREIGN KEY (`slides_id`) REFERENCES `slides` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
