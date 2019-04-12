@@ -5,10 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\admin\models\Points */
 
-$this->title = 'Update Points: ' . $model->address;
-$this->params['breadcrumbs'][] = ['label' => 'Points', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Изменить точку: ' . $model->address;
+
 ?>
 <div class="points-update">
 

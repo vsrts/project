@@ -8,11 +8,12 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * CitiesController implements the CRUD actions for Cities model.
  */
-class CitiesController extends Controller
+class CitiesController extends AppAdminController
 {
     /**
      * {@inheritdoc}
@@ -20,6 +21,15 @@ class CitiesController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['admin']
+                    ],
+                ]
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -37,6 +47,11 @@ class CitiesController extends Controller
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Cities::find(),
+            'sort'=>[
+                'defaultOrder'=>[
+                    'name'=>SORT_ASC
+                ]
+            ]
         ]);
 
         return $this->render('index', [
@@ -69,7 +84,7 @@ class CitiesController extends Controller
         $model = new Cities();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -89,7 +104,7 @@ class CitiesController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('update', [

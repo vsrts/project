@@ -6,15 +6,15 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Города';
-
+$this->title = 'Categories';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="cities-index">
+<div class="categories-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить город', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Categories', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -22,14 +22,10 @@ $this->title = 'Города';
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            'id',
             'name',
-            'subdomain',
 
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'headerOptions' => ['width' => '50'],
-                'template' => '{update} {delete}',
-            ],
+            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 </div>

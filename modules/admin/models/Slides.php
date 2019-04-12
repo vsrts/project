@@ -10,8 +10,10 @@ use Yii;
  * @property int $id
  * @property string $image
  * @property string $code
+ * @property int $sort
  *
- * @property SlideOnly[] $slideOnlies
+ * @property SlidesCities[] $slidesCities
+ * @property Cities[] $cities
  */
 class Slides extends \yii\db\ActiveRecord
 {
@@ -29,8 +31,10 @@ class Slides extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['sort'], 'required'],
+            [['sort'], 'integer'],
+            [['citiesArray'], 'safe'],
             [['image', 'code'], 'string', 'max' => 255],
-            [['sort'], 'int', 'unique'],
         ];
     }
 
@@ -42,22 +46,62 @@ class Slides extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'image' => 'Изображение',
-            'code' => 'Код',
+            'code' => 'Произвольный код',
             'sort' => 'Порядок',
-            'city' => 'Город',
+            'citiesArray' => 'Активен в городах'
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSlideOnlies()
+    public function getSlidesCities()
     {
-        return $this->hasMany(SlideOnly::className(), ['slide_id' => 'id']);
+        return $this->hasMany(SlidesCities::className(), ['slides_id' => 'id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getCities()
     {
-        return $this->hasMany(Cities::className(), ['id' => 'city_id'])
-            ->via('slideOnlies');
+        return $this->hasMany(Cities::className(), ['id' => 'cities_id'])->viaTable('slides_cities', ['slides_id' => 'id']);
+    }
+
+    private $_citiesArray;
+
+    public function getCitiesArray()
+    {
+        if($this->_citiesArray === null){
+            $this->_citiesArray = $this->getCities()->select('id')->column();
+        }
+        return $this->_citiesArray;
+    }
+
+    public function setCitiesArray($value){
+        return $this->_citiesArray = (array)$value;
+    }
+
+    public function afterSave($insert, $changedAttributes){
+        $this->updateCities();
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    private function updateCities(){
+        $currentCitiesIds = $this->getCities()->select('id')->column();
+        $newCitiesIds = $this->getCitiesArray();
+
+        foreach (array_filter(array_diff($newCitiesIds, $currentCitiesIds)) as $citiesId){
+            if($cities = Cities::findOne($citiesId)){
+                $this->link('cities', $cities);
+            }
+        }
+
+        foreach (array_filter(array_diff($currentCitiesIds, $newCitiesIds)) as $citiesId){
+            if($cities = Cities::findOne($citiesId)){
+                $this->unlink('cities', $cities, true);
+            }
+        }
+
     }
 }

@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use Yii;
 use yii\web\Controller;
 
 /**
@@ -9,6 +10,12 @@ use yii\web\Controller;
  */
 class DefaultController extends AppAdminController
 {
+    public function beforeAction($action){
+        if (Yii::$app->user->role == 'manager') {
+            return $this->redirect(['/admin/profile']);
+        }
+        return parent::beforeAction($action);
+    }
     /**
      * Renders the index view for the module
      * @return string

@@ -16,6 +16,10 @@ use Yii;
  */
 class User extends \yii\db\ActiveRecord
 {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 36cc9083d0fef92da4b0d14150e1f2d91c00595c
     public $new_password;
     /**
      * {@inheritdoc}
@@ -31,8 +35,14 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+<<<<<<< HEAD
             [['username', 'password',], 'required'],
             [['username', 'password', 'new_password',], 'string', 'max' => 255],
+=======
+            [['username', 'role'], 'required'],
+            [['username', 'new_password',], 'string', 'max' => 255],
+            [['new_password'], 'required', 'on'=>'create'],
+>>>>>>> 36cc9083d0fef92da4b0d14150e1f2d91c00595c
         ];
     }
 
@@ -46,8 +56,13 @@ class User extends \yii\db\ActiveRecord
             'password' => 'Пароль',
             'name' => 'Имя',
             'phone' => 'Телефон',
+<<<<<<< HEAD
             'type' => 'Тип пользователя',
             'new_password' => 'Новый пароль',
+=======
+            'role' => 'Тип пользователя',
+            'new_password' => 'Пароль',
+>>>>>>> 36cc9083d0fef92da4b0d14150e1f2d91c00595c
         ];
     }
 

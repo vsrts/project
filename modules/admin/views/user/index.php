@@ -6,21 +6,20 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Пользователи';
+
 ?>
 <div class="user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить пользователя', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
             'username',
             [
@@ -35,14 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->profile->phone;
                 }
             ],
+            'role',
             [
-                'attribute' => 'type',
-                'value' => function($data){
-                    return $data->profile->type;
-                }
+                'class' => 'yii\grid\ActionColumn',
+                'headerOptions' => ['width' => '50'],
+                'template' => '{update} {delete}',
             ],
-
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 </div>

@@ -6,14 +6,14 @@ use Yii;
 use app\modules\admin\models\User;
 use app\modules\admin\models\Profile;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * UserController implements the CRUD actions for User model.
  */
-class UserController extends Controller
+class UserController extends AppAdminController
 {
     /**
      * {@inheritdoc}
@@ -21,6 +21,15 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['admin']
+                    ],
+                ]
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -36,6 +45,7 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
+
         $dataProvider = new ActiveDataProvider([
             'query' => User::find(),
         ]);
@@ -67,6 +77,7 @@ class UserController extends Controller
     {
         $user = new User();
         $profile = new Profile();
+<<<<<<< HEAD
 
         if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post()) && $user->save() && $profile->save()) {
             $isValid = $user->validate();
@@ -75,6 +86,34 @@ class UserController extends Controller
                 $user->save(false);
                 $profile->save(false);
                 return $this->redirect(['view', 'id' => $user->id]);
+=======
+
+        $user->scenario = 'create';
+
+        if ($user->load(Yii::$app->request->post()) && $profile->load(Yii::$app->request->post())) {
+
+            $user->attributes = $user->load(Yii::$app->request->post());
+            $profile->attributes = $profile->load(Yii::$app->request->post());
+
+            $isValid = $user->validate();
+            $transaction=Yii::$app->db->beginTransaction();
+            try {
+                if ($isValid) {
+                    $user->save(false);
+                }
+
+                $profile->user_id = $user->id;
+                $isValid = $profile->validate() && $isValid;
+
+                if ($isValid) {
+                    $profile->save(false);
+                    $transaction->commit();
+                    return $this->redirect(['index', 'id' => $user->id]);
+                }
+            }catch(Exception $e){
+                $transaction->rollBack();
+                throw $e;
+>>>>>>> 36cc9083d0fef92da4b0d14150e1f2d91c00595c
             }
         }
 
@@ -82,6 +121,7 @@ class UserController extends Controller
             'user' => $user,
             'profile' => $profile,
         ]);
+
     }
 
     /**
@@ -94,7 +134,7 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $user = User::findOne($id);
-        $profile = Profile::findOne($id);
+        $profile = Profile::findOne(['user_id' => $id]);
 
         if (!isset($user, $profile)) {
             throw new NotFoundHttpException("Пользователь не найден.");
@@ -106,7 +146,7 @@ class UserController extends Controller
             if ($isValid) {
                 $user->save(false);
                 $profile->save(false);
-                return $this->redirect(['user/view', 'id' => $id]);
+                return $this->redirect(['index', 'id' => $id]);
             }
         }
 
@@ -126,6 +166,8 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
+        $profile = Profile::findOne(['user_id' => $id]);
+        $profile->delete();
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

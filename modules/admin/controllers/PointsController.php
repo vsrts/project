@@ -2,24 +2,37 @@
 
 namespace app\modules\admin\controllers;
 
+use app\modules\admin\models\PointCategories;
 use Yii;
 use app\modules\admin\models\Points;
+use app\modules\admin\models\Categories;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * PointsController implements the CRUD actions for Points model.
  */
-class PointsController extends Controller
+class PointsController extends AppAdminController
 {
+
     /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['admin']
+                    ],
+                ]
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -36,7 +49,12 @@ class PointsController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Points::find()->with('cities'),
+            'query' => Points::find()->with('cities', 'profile', 'categories'),
+            'sort'=>[
+                'defaultOrder'=>[
+                    'city'=>SORT_ASC
+                ]
+            ]
         ]);
 
         return $this->render('index', [
@@ -67,7 +85,7 @@ class PointsController extends Controller
         $model = new Points();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -87,7 +105,7 @@ class PointsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('update', [

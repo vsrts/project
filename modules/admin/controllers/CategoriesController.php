@@ -3,16 +3,16 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\modules\admin\models\Slides;
+use app\modules\admin\models\Categories;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SlidesController implements the CRUD actions for Slides model.
+ * CategoriesController implements the CRUD actions for Categories model.
  */
-class SlidesController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,13 +30,14 @@ class SlidesController extends Controller
     }
 
     /**
-     * Lists all Slides models.
+     * Lists all Categories models.
      * @return mixed
      */
     public function actionIndex()
     {
+
         $dataProvider = new ActiveDataProvider([
-            'query' => Slides::find(),
+            'query' => Categories::find(),
         ]);
 
         return $this->render('index', [
@@ -45,7 +46,7 @@ class SlidesController extends Controller
     }
 
     /**
-     * Displays a single Slides model.
+     * Displays a single Categories model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,16 +59,16 @@ class SlidesController extends Controller
     }
 
     /**
-     * Creates a new Slides model.
+     * Creates a new Categories model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Slides();
+        $model = new Categories();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -76,7 +77,7 @@ class SlidesController extends Controller
     }
 
     /**
-     * Updates an existing Slides model.
+     * Updates an existing Categories model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,7 +88,7 @@ class SlidesController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
@@ -96,7 +97,7 @@ class SlidesController extends Controller
     }
 
     /**
-     * Deletes an existing Slides model.
+     * Deletes an existing Categories model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +111,15 @@ class SlidesController extends Controller
     }
 
     /**
-     * Finds the Slides model based on its primary key value.
+     * Finds the Categories model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Slides the loaded model
+     * @return Categories the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Slides::findOne($id)) !== null) {
+        if (($model = Categories::findOne($id)) !== null) {
             return $model;
         }
 

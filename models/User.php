@@ -3,11 +3,41 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use yii\db\Query;
 
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
 
+    const ROLE_ROOT = 'root';
+    const ROLE_ADMIN = 'admin';
+    const ROLE_MANAGER = 'manager';
 
+    /**
+     * Возвращает массив всех доступных ролей.
+     * @return array
+     */
+    static public function roleArray()
+    {
+        return [
+            self::ROLE_ROOT,
+            self::ROLE_ADMIN,
+            self::ROLE_MANAGER,
+        ];
+    }
+
+    /**
+     * Возвращает роль пользователя по его ID в случае успеха и `false`  в случае неудачи.
+     * @param integer $id ID пользователя.
+     * @return string|false
+     */
+    static public function getRoleOfUser($id)
+    {
+        return (new Query)
+            ->select('role')
+            ->from(self::tableName())
+            ->where(['id' => $id])
+            ->scalar();
+    }
 
     public static function tableName()
     {

@@ -4,12 +4,12 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\admin\models\Points */
+/* @var $model app\modules\admin\models\Slides */
 
-$this->title = 'Добавить точку';
+$this->title = 'Добавление слайда';
 
 ?>
-<div class="points-create">
+<div class="slides-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

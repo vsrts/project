@@ -8,6 +8,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'ru',
+    'defaultRoute' => 'admin',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -24,12 +25,20 @@ $config = [
             'cookieValidationKey' => 'kgJ7sHJ8qh7kRtXlUgS9qIv05NttsvkX',
             'baseUrl' => '',
         ],
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+            'itemFile' => '@app/rbac/items.php',
+            'ruleFile' => '@app/rbac/rules.php',
+            'assignmentFile' => '@app/rbac/assignments.php', // назначения придется указать, потому что того требуют каноны церкви
+            'defaultRoles' =>['root', 'admin', 'manager'],
         ],
         'user' => [
+            'class' => 'app\components\User',
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+        ],
+        'cache' => [
+            'class' => 'yii\caching\FileCache',
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
