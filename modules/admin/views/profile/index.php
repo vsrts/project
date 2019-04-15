@@ -3,21 +3,24 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\bootstrap\Tabs;
+use yii\widgets\Pjax;
 
 $this->title = "Страница управляющего";
 ?>
 
 
 
-<h1>Управляющий <?= $profile->name; ?></h1>
+<h1>Управляющий </h1>
 
+<?php Pjax::begin(['id' => 'p' . $profile->id]); ?>
 <?php $form = ActiveForm::begin([
-    'options' => ['class' => 'form-inline'],
+    'options' => ['class' => 'form-inline', 'data-pjax' => true],
 ]); ?>
+<?= $form->field($profile, 'name')->textInput(['maxlength' => true]) ?>
 <?= $form->field($profile, 'phone')->textInput(['maxlength' => true]) ?>
     <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
 <?php ActiveForm::end(); ?>
-
+<?php Pjax::end(); ?>
 
 
 

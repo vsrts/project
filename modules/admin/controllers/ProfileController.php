@@ -26,15 +26,19 @@ class ProfileController extends AppAdminController
     }
 
     public function actionSave($id){
-
         $point = Points::findOne($id);
 
         if ($point->load(Yii::$app->request->post())) {
             $isValid = $point->validate();
             if ($isValid) {
                 $point->save(false);
-                return $this->redirect(['index']);
+                if (!Yii::$app->request->isPjax) {
+                    return $this->redirect(['index']);
+                }
             }
         }
+        $profile = Profile::findOne(['user_id' => Yii::$app->user->getId()]);
+        $points = Points::find()->with('cities')->where(['manager' => Yii::$app->user->getId()])->all();
+        return $this->render('index', compact('profile', 'points'));
     }
 }

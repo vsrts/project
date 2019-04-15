@@ -2,12 +2,14 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 ?>
 
 <div class="save-form">
-
+    <?php Pjax::begin(['id' => $point->id]); ?>
     <?php $form = ActiveForm::begin([
+        'options' => ['data-pjax' => true],
         'action' => Url::to(['profile/save/?id=' . $point->id]),
     ]); ?>
 
@@ -24,5 +26,6 @@ use yii\helpers\Url;
     </div>
 
     <?php ActiveForm::end(); ?>
+    <?php Pjax::end(); ?>
 
 </div>
