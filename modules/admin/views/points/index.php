@@ -29,28 +29,28 @@ $this->title = 'Точки';
                     return $data->cities->name;
                 }
             ],
-            'phone',
-            'second_phone',
-            'email:email',
+            //'phone',
+            //'second_phone',
+            //'email:email',
             'address',
-            'time',
+            //'time',
             [
                 'attribute' => 'manager',
                 'value' => function($data){
                     return $data->profile->name;
                 }
             ],
-            'filial',
-            [
-                'attribute' => 'points',
-                'value' => function($data){
-                    $listCategories = "";
-                    foreach($data->categories as $category){
-                        $listCategories .= $category->name . ", ";
-                    }
-                    return $listCategories;
-                }
-            ],
+            //'filial',
+//            [
+//                'attribute' => 'points',
+//                'value' => function($data){
+//                    $listCategories = "";
+//                    foreach($data->categories as $category){
+//                        $listCategories .= $category->name . ", ";
+//                    }
+//                    return $listCategories;
+//                }
+//            ],
             [
                 'attribute' => 'status',
                 'value' => function($data){

@@ -11,6 +11,12 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+
+$this->registerLinkTag([
+    'rel' => 'shortcut icon',
+    'type' => 'image/x-icon',
+    'href' => '../../web/favicon.ico',
+]);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -73,7 +79,7 @@ AppAsset::register($this);
     <div class="container">
         <p class="pull-left">&copy; Админка <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+
     </div>
 </footer>
 

@@ -26,18 +26,22 @@ $this->title = 'Слайды';
             'image',
             'code',
             'sort',
-            [
-                'attribute' => 'cities',
-                'value' => function($data){
-                    $listCities = "";
-                    foreach($data->cities as $city){
-                        $listCities .= $city->name . ", ";
-                    }
-                    return $listCities;
-                }
-            ],
+//            [
+//                'attribute' => 'cities',
+//                'value' => function($data){
+//                    $listCities = "";
+//                    foreach($data->cities as $city){
+//                        $listCities .= $city->name . ", ";
+//                    }
+//                    return $listCities;
+//                }
+//            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'headerOptions' => ['width' => '50'],
+                'template' => '{update} {delete}',
+            ],
         ],
     ]); ?>
 </div>
