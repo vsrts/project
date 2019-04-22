@@ -29,6 +29,8 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'manager')->dropDownList(\yii\helpers\ArrayHelper::map(\app\modules\admin\models\Profile::find()->all(), 'user_id', 'name')) ?>
 
+    <?= $form->field($model, 'control')->textInput() ?>
+
     <?= $form->field($model, 'filial')->textInput() ?>
 
     <?= $form->field($model, 'status')->dropDownList(['0' => 'Выключен', '1' => 'Включен',]) ?>

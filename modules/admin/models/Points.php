@@ -34,10 +34,10 @@ class Points extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['city', 'phone', 'time', 'email', 'address', 'filial', 'manager'], 'required'],
+            [['city', 'phone', 'time', 'email', 'address'], 'required'],
             [['city', 'filial', 'status', 'manager'], 'integer'],
             [['categoriesArray'], 'safe'],
-            [['phone', 'second_phone', 'email', 'address', 'time'], 'string', 'max' => 255],
+            [['phone', 'second_phone', 'email', 'address', 'time', 'control'], 'string', 'max' => 255],
             [['city'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['city' => 'id']],
         ];
     }
@@ -55,6 +55,7 @@ class Points extends \yii\db\ActiveRecord
             'email' => 'Email',
             'address' => 'Адрес',
             'time' => 'Время работы',
+            'control' => 'Контроль качества',
             'manager' => 'Управляющий',
             'filial' => 'ID филиала',
             'status' => 'Статус',

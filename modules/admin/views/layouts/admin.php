@@ -32,6 +32,8 @@ $this->registerLinkTag([
 <body>
 <?php $this->beginBody() ?>
 
+<?php print_r(Yii::$app->getUser()->identity->role) ?>
+
 <div class="wrap">
     <?php
     NavBar::begin([
