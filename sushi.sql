@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 22 2019 г., 20:30
+-- Время создания: Апр 22 2019 г., 22:22
 -- Версия сервера: 5.6.38
 -- Версия PHP: 5.6.32
 
@@ -132,7 +132,7 @@ INSERT INTO `points` (`id`, `city`, `phone`, `second_phone`, `email`, `address`,
 (15, 7, '8 (4712) 550-580', NULL, 'kursk@суши-даром.рф', 'ул. Бойцов 9 дивизии 185Ж', NULL, '', 1, NULL, 1, 1),
 (16, 7, '8 (4712) 550-590', '', 'kursk@суши-даром.рф', 'пр-т Анатолия Дериглазова, 19', '123', '', 1, NULL, 1, 1),
 (17, 8, '8(4712)550-540', NULL, 'kurchatov@суши-даром.рф', 'ул. Энергетиков, 12а', NULL, '', 1, NULL, 1, 1),
-(18, 9, '8(938)863-22-85', NULL, 'mozdok@суши-даром.рф', 'ул. Армянская 14', NULL, '', 1, NULL, 1, 1),
+(18, 9, '8 (938) 863-22-85', '', 'mozdok@суши-даром.рф', 'ул. Армянская 14', 'пн-чт с 10:00-23:00, пт-вс с 10:00-24:00', 'Евгений Семёнов 8 (917) 817-16-83', 4, 500, 1, 1),
 (19, 10, '8 (800) 550-53-49', NULL, 'sushi-darom@mail.ru', 'ул. Мира 10', NULL, '', 1, NULL, 1, 1),
 (20, 10, '8 (800) 550-53-49', NULL, 'sushi-darom@mail.ru', 'ул. Видова, 210д', NULL, '', 1, NULL, 1, 1),
 (21, 10, '8 (800) 550-53-49', NULL, 'sushi-darom@mail.ru', 'пр. Дзержинского, 228', NULL, '', 1, NULL, 1, 1),
@@ -169,8 +169,10 @@ CREATE TABLE `point_categories` (
 --
 
 INSERT INTO `point_categories` (`point_id`, `category_id`) VALUES
+(18, 1),
 (24, 1),
 (3, 2),
+(18, 2),
 (24, 2),
 (3, 3),
 (24, 3),
@@ -184,6 +186,7 @@ INSERT INTO `point_categories` (`point_id`, `category_id`) VALUES
 (16, 6),
 (24, 6),
 (24, 7),
+(18, 8),
 (24, 8),
 (24, 9),
 (24, 10),
@@ -214,7 +217,8 @@ CREATE TABLE `profile` (
 INSERT INTO `profile` (`id`, `user_id`, `name`, `phone`) VALUES
 (1, 1, 'VS', '8 (917) 817-16-83'),
 (4, 2, 'Вася', '8 (917) 123-45-67'),
-(5, 3, 'Валера', '1234356');
+(5, 3, 'Валера', '1234356'),
+(6, 4, 'Юрий Ногай', '8 (928) 421-92-53');
 
 -- --------------------------------------------------------
 
@@ -315,7 +319,8 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `password`, `role`, `auth_key`) VALUES
 (1, 'admin', '$2y$13$5lPoOl3z0EcN6MK5duNCTu9/x0wCMqHPB1FyTmTsPhZIUdDt8rxj.', 'root', 'oUBHZtM9ZBpgf-Z-AApUc8bprPjAxsgV'),
 (2, 'vasya', '$2y$13$JN20QJ74DufiBNdEXeCwJ.5FRebi5WhC1YtRDi0fh7c9YJlklCz.W', 'manager', 'spAIahxPbuC0uMcpwE22S3teWSNVZH4h'),
-(3, 'valera', '$2y$13$U0myuIYt8JDJ/rdYD1/hB.guHJkH.I5h5Slnax6RlYKuTG0ckMaKa', 'admin', '44vrxNJHXI6oESnpwl0LoEW0aZdUhU1O');
+(3, 'valera', '$2y$13$U0myuIYt8JDJ/rdYD1/hB.guHJkH.I5h5Slnax6RlYKuTG0ckMaKa', 'admin', '44vrxNJHXI6oESnpwl0LoEW0aZdUhU1O'),
+(4, 'uriinogai', '$2y$13$ttQP9sf.RzUQBZArE1qgBOeAHfF58jOhvUsLSj08r7va4FeNHMniO', 'manager', NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -402,7 +407,7 @@ ALTER TABLE `points`
 -- AUTO_INCREMENT для таблицы `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT для таблицы `slides`
@@ -414,7 +419,7 @@ ALTER TABLE `slides`
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
