@@ -19,6 +19,7 @@ use yii\widgets\Pjax;
             <?= $form->field($point, 'second_phone') ?>
             <?= $form->field($point, 'time') ?>
             <?= $form->field($point, 'control') ?>
+            <?= $form->field($point, 'min_sum') ?>
         </div>
         <div class="form-block">
     <?= $form->field($point, 'categoriesArray')->checkboxList(\yii\helpers\ArrayHelper::map(\app\modules\admin\models\Categories::find()->all(), 'id', 'name')) ?>
