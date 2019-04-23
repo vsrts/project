@@ -26,7 +26,7 @@ class UserController extends AppAdminController
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['root']
+                        'roles' => ['admin']
                     ],
                 ]
             ],

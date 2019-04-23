@@ -19,6 +19,7 @@ class ProfileController extends AppAdminController
             $isValid = $profile->validate();
             if ($isValid) {
                 $profile->save(false);
+                //Yii::$app->session->setFlash('success', "Изменения сохранены");
             }
         }
 

@@ -33,6 +33,8 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'filial')->textInput() ?>
 
+    <?= $form->field($model, 'api_key')->textInput() ?>
+
     <?= $form->field($model, 'min_sum')->textInput() ?>
 
     <?= $form->field($model, 'status')->dropDownList(['0' => 'Выключен', '1' => 'Включен',]) ?>

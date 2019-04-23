@@ -35,7 +35,7 @@ class Points extends \yii\db\ActiveRecord
     {
         return [
             [['city', 'phone', 'time', 'email', 'address'], 'required'],
-            [['city', 'filial', 'status', 'manager', 'min_sum'], 'integer'],
+            [['city', 'filial', 'status', 'manager', 'min_sum', 'api_key'], 'integer'],
             [['categoriesArray'], 'safe'],
             [['phone', 'second_phone', 'email', 'address', 'time', 'control'], 'string', 'max' => 255],
             [['city'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['city' => 'id']],
@@ -58,6 +58,7 @@ class Points extends \yii\db\ActiveRecord
             'control' => 'Контроль качества',
             'manager' => 'Управляющий',
             'filial' => 'ID филиала',
+            'api_key' => 'Ключ API',
             'min_sum' => 'Минимальная сумма заказа',
             'status' => 'Статус',
             'points' => 'Активные категории',

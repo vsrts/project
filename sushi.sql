@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 22 2019 г., 22:22
+-- Время создания: Апр 23 2019 г., 10:46
 -- Версия сервера: 5.6.38
 -- Версия PHP: 5.6.32
 
@@ -110,6 +110,7 @@ CREATE TABLE `points` (
   `manager` int(11) DEFAULT NULL,
   `min_sum` int(11) DEFAULT NULL,
   `filial` int(11) DEFAULT NULL,
+  `api_key` int(11) DEFAULT NULL,
   `status` int(2) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -117,41 +118,41 @@ CREATE TABLE `points` (
 -- Дамп данных таблицы `points`
 --
 
-INSERT INTO `points` (`id`, `city`, `phone`, `second_phone`, `email`, `address`, `time`, `control`, `manager`, `min_sum`, `filial`, `status`) VALUES
-(3, 1, '8 (918) 850-04-52', '1234', 'aksai@суши-даром.рф', 'ул.Платова, 83', '123', 'Test 123245', 2, 500, 0, 1),
-(4, 2, '8 (938) 534-04-44', '', 'sushidarom-anapa@yandex.ru', 'ул. Промышленная, 16', '456', '', 2, NULL, 0, 1),
-(6, 5, '8 (967) 664-29-29', NULL, 'kluch@суши-даром.рф', 'ул. Революции, 7', NULL, '', 1, NULL, 1, 1),
-(7, 20, '8(988)259-89-56', NULL, 'azov@суши-даром.рф', 'пер. Маяковского, 77', NULL, '', 1, NULL, 1, 1),
-(8, 3, '8(473)290-6-555', NULL, 'voronezh@суши-даром.рф', 'ул. Генерала Лизюкова, 50', NULL, '', 1, NULL, 1, 1),
-(9, 4, '8 (962) 873-88-81', NULL, 'gelendzhik@суши-даром.рф', 'ул. Ленина, 30', NULL, '', 1, NULL, 1, 1),
-(10, 6, '8 (800) 555-24-08', '', 'sd-krasnodar1@yandex.ru', 'ул. Кубанская набережная 5', '789', '', 2, NULL, 1, 1),
-(11, 6, '8 (800) 555-24-08', '', 'sd-krasnodar1@yandex.ru', 'ул. Котлярова, 21', '123', '', 2, NULL, 1, 1),
-(12, 6, '8 (800) 555-24-08', '', 'sd-krasnodar1@yandex.ru', 'ул. Лизы Чайкиной, 2/1', '123', '', 2, NULL, 1, 1),
-(13, 6, '8 (800) 555-24-08', '', 'sd-krasnodar1@yandex.ru', 'ул. Комарова, 21/1', '123', '', 2, NULL, 1, 1),
-(14, 6, '8 (800) 555-24-08', '', 'sd-krasnodar1@yandex.ru', 'ул. Тюляева, 9/1', '123', '', 2, NULL, 1, 1),
-(15, 7, '8 (4712) 550-580', NULL, 'kursk@суши-даром.рф', 'ул. Бойцов 9 дивизии 185Ж', NULL, '', 1, NULL, 1, 1),
-(16, 7, '8 (4712) 550-590', '', 'kursk@суши-даром.рф', 'пр-т Анатолия Дериглазова, 19', '123', '', 1, NULL, 1, 1),
-(17, 8, '8(4712)550-540', NULL, 'kurchatov@суши-даром.рф', 'ул. Энергетиков, 12а', NULL, '', 1, NULL, 1, 1),
-(18, 9, '8 (938) 863-22-85', '', 'mozdok@суши-даром.рф', 'ул. Армянская 14', 'пн-чт с 10:00-23:00, пт-вс с 10:00-24:00', 'Евгений Семёнов 8 (917) 817-16-83', 4, 500, 1, 1),
-(19, 10, '8 (800) 550-53-49', NULL, 'sushi-darom@mail.ru', 'ул. Мира 10', NULL, '', 1, NULL, 1, 1),
-(20, 10, '8 (800) 550-53-49', NULL, 'sushi-darom@mail.ru', 'ул. Видова, 210д', NULL, '', 1, NULL, 1, 1),
-(21, 10, '8 (800) 550-53-49', NULL, 'sushi-darom@mail.ru', 'пр. Дзержинского, 228', NULL, '', 1, NULL, 1, 1),
-(22, 11, '8 (988) 541-05-00', NULL, 'sd-rostov1@yandex.ru', 'пр.Ермака, 44', NULL, '', 1, NULL, 1, 1),
-(23, 17, '8 (928) 716-55-67', NULL, 'prohladny@суши-даром.рф', 'ул. Ленина, 102/1', NULL, '', 1, NULL, 1, 1),
-(24, 12, '8 (800) 555-82-06', '8 (863) 229-69-46', 'sushidarom61@yandex.ru', 'б-р Комарова 20', 'пн-чт с 10:00-23:00, пт-вс с 10:00-24:00', '', 1, NULL, 1, 1),
-(25, 12, '8(800)555-82-06', '', 'sushidarom61@yandex.ru', 'ул. Таганрогская 114', '123', '', 1, NULL, 1, 1),
-(26, 12, '8(800)555-82-06', '', 'sushidarom61@yandex.ru', 'ул. Темерницкая 41б', '1123', '', 1, NULL, 1, 1),
-(27, 12, '8(800)555-82-06', '', 'sushidarom61@yandex.ru', 'ул. Малиновского 38/29', 'test', '', 1, NULL, 1, 1),
-(28, 13, '8 (8452) 930-080', NULL, 'sushidarom64@yandex.ru', 'ул. Московская 42', NULL, '', 1, NULL, 1, 1),
-(29, 13, '8 (8452) 930-020', NULL, 'sushidarom64@yandex.ru', 'п. Солнечный', NULL, '', 1, NULL, 1, 1),
-(30, 13, '8 (8452) 939-711', NULL, 'sushidarom64@yandex.ru', 'пр-т 50 Лет Октября, 69', NULL, '', 1, NULL, 1, 1),
-(31, 13, '8 (8452) 931-322', NULL, 'sushidarom64@yandex.ru', 'ул.Пономарева д.9/14', NULL, '', 1, NULL, 1, 1),
-(32, 13, '8 (8452) 930-080', NULL, 'sushidarom64@yandex.ru', 'ул. Большая Садовая, д. 141', NULL, '', 1, NULL, 1, 1),
-(33, 14, '8(918)355-75-05', '', 'stanitsdinskaya@yandex.ru', 'ул. Красная 64', '123', '', 1, NULL, 1, 1),
-(34, 19, '8 (989) 5000-141', NULL, 'taganrog@суши-даром.рф', 'пер. Спартаковский, 1а', NULL, '', 1, NULL, 1, 1),
-(35, 15, '8 (967) 673-2-444', NULL, 'timashevsk@суши-даром.рф', 'ул. Колесникова 40а', NULL, '', 1, NULL, 1, 1),
-(36, 16, '8(928)435-18-08', NULL, 'ustlabinsk@суши-даром.рф', 'ул. Красная, 291', NULL, '', 1, NULL, 1, 1),
-(37, 21, '8 (800) 555-24-08', NULL, 'yablonovski@суши-даром.рф', 'ул. Гагарина, 46/1', NULL, '', 1, NULL, 1, 1);
+INSERT INTO `points` (`id`, `city`, `phone`, `second_phone`, `email`, `address`, `time`, `control`, `manager`, `min_sum`, `filial`, `api_key`, `status`) VALUES
+(3, 1, '8 (918) 850-04-51', '1234', 'aksai@суши-даром.рф', 'ул.Платова, 83', '123', 'Test 123245', 2, 600, 0, NULL, 1),
+(4, 2, '8 (938) 534-04-44', '', 'sushidarom-anapa@yandex.ru', 'ул. Промышленная, 16', '456', '', 2, NULL, 0, NULL, 1),
+(6, 5, '8 (967) 664-29-29', NULL, 'kluch@суши-даром.рф', 'ул. Революции, 7', NULL, '', 1, NULL, 1, NULL, 1),
+(7, 20, '8(988)259-89-56', NULL, 'azov@суши-даром.рф', 'пер. Маяковского, 77', NULL, '', 1, NULL, 1, NULL, 1),
+(8, 3, '8(473)290-6-555', NULL, 'voronezh@суши-даром.рф', 'ул. Генерала Лизюкова, 50', NULL, '', 1, NULL, 1, NULL, 1),
+(9, 4, '8 (962) 873-88-81', NULL, 'gelendzhik@суши-даром.рф', 'ул. Ленина, 30', NULL, '', 1, NULL, 1, NULL, 1),
+(10, 6, '8 (800) 555-24-08', '', 'sd-krasnodar1@yandex.ru', 'ул. Кубанская набережная 5', '789', '', 2, NULL, 1, NULL, 1),
+(11, 6, '8 (800) 555-24-08', '', 'sd-krasnodar1@yandex.ru', 'ул. Котлярова, 21', '123', '', 2, NULL, 1, NULL, 1),
+(12, 6, '8 (800) 555-24-08', '', 'sd-krasnodar1@yandex.ru', 'ул. Лизы Чайкиной, 2/1', '123', '', 2, NULL, 1, NULL, 1),
+(13, 6, '8 (800) 555-24-08', '', 'sd-krasnodar1@yandex.ru', 'ул. Комарова, 21/1', '123', '', 2, NULL, 1, NULL, 1),
+(14, 6, '8 (800) 555-24-08', '', 'sd-krasnodar1@yandex.ru', 'ул. Тюляева, 9/1', '123', '', 2, NULL, 1, NULL, 1),
+(15, 7, '8 (4712) 550-580', NULL, 'kursk@суши-даром.рф', 'ул. Бойцов 9 дивизии 185Ж', NULL, '', 1, NULL, 1, NULL, 1),
+(16, 7, '8 (4712) 550-590', '', 'kursk@суши-даром.рф', 'пр-т Анатолия Дериглазова, 19', '123', '', 1, NULL, 1, NULL, 1),
+(17, 8, '8(4712)550-540', NULL, 'kurchatov@суши-даром.рф', 'ул. Энергетиков, 12а', NULL, '', 1, NULL, 1, NULL, 1),
+(18, 9, '8 (938) 863-22-85', '', 'mozdok@суши-даром.рф', 'ул. Армянская 14', 'пн-чт с 10:00-23:00, пт-вс с 10:00-24:00', 'Евгений Семёнов 8 (917) 817-16-83', 4, 500, 1, NULL, 1),
+(19, 10, '8 (800) 550-53-49', NULL, 'sushi-darom@mail.ru', 'ул. Мира 10', NULL, '', 1, NULL, 1, NULL, 1),
+(20, 10, '8 (800) 550-53-49', NULL, 'sushi-darom@mail.ru', 'ул. Видова, 210д', NULL, '', 1, NULL, 1, NULL, 1),
+(21, 10, '8 (800) 550-53-49', NULL, 'sushi-darom@mail.ru', 'пр. Дзержинского, 228', NULL, '', 1, NULL, 1, NULL, 1),
+(22, 11, '8 (988) 541-05-00', NULL, 'sd-rostov1@yandex.ru', 'пр.Ермака, 44', NULL, '', 1, NULL, 1, NULL, 1),
+(23, 17, '8 (928) 716-55-67', NULL, 'prohladny@суши-даром.рф', 'ул. Ленина, 102/1', NULL, '', 1, NULL, 1, NULL, 1),
+(24, 12, '8 (800) 555-82-06', '8 (863) 229-69-46', 'sushidarom61@yandex.ru', 'б-р Комарова 20', 'пн-чт с 10:00-23:00, пт-вс с 10:00-24:00', 'Сергей, 8 (938) 134-88-38', 1, 500, 1, NULL, 1),
+(25, 12, '8(800)555-82-06', '', 'sushidarom61@yandex.ru', 'ул. Таганрогская 114', '123', '', 1, NULL, 1, NULL, 1),
+(26, 12, '8(800)555-82-06', '', 'sushidarom61@yandex.ru', 'ул. Темерницкая 41б', '1123', '', 1, NULL, 1, NULL, 1),
+(27, 12, '8(800)555-82-06', '', 'sushidarom61@yandex.ru', 'ул. Малиновского 38/29', 'test', '', 1, NULL, 1, NULL, 1),
+(28, 13, '8 (8452) 930-080', NULL, 'sushidarom64@yandex.ru', 'ул. Московская 42', NULL, '', 1, NULL, 1, NULL, 1),
+(29, 13, '8 (8452) 930-020', NULL, 'sushidarom64@yandex.ru', 'п. Солнечный', NULL, '', 1, NULL, 1, NULL, 1),
+(30, 13, '8 (8452) 939-711', NULL, 'sushidarom64@yandex.ru', 'пр-т 50 Лет Октября, 69', NULL, '', 1, NULL, 1, NULL, 1),
+(31, 13, '8 (8452) 931-322', NULL, 'sushidarom64@yandex.ru', 'ул.Пономарева д.9/14', NULL, '', 1, NULL, 1, NULL, 1),
+(32, 13, '8 (8452) 930-080', NULL, 'sushidarom64@yandex.ru', 'ул. Большая Садовая, д. 141', NULL, '', 1, NULL, 1, NULL, 1),
+(33, 14, '8(918)355-75-05', '', 'stanitsdinskaya@yandex.ru', 'ул. Красная 64', '123', '', 1, NULL, 1, NULL, 1),
+(34, 19, '8 (989) 5000-141', NULL, 'taganrog@суши-даром.рф', 'пер. Спартаковский, 1а', NULL, '', 1, NULL, 1, NULL, 1),
+(35, 15, '8 (967) 673-2-444', NULL, 'timashevsk@суши-даром.рф', 'ул. Колесникова 40а', NULL, '', 1, NULL, 1, NULL, 1),
+(36, 16, '8(928)435-18-08', NULL, 'ustlabinsk@суши-даром.рф', 'ул. Красная, 291', NULL, '', 1, NULL, 1, NULL, 1),
+(37, 21, '8 (800) 555-24-08', NULL, 'yablonovski@суши-даром.рф', 'ул. Гагарина, 46/1', NULL, '', 1, NULL, 1, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -188,6 +189,7 @@ INSERT INTO `point_categories` (`point_id`, `category_id`) VALUES
 (24, 7),
 (18, 8),
 (24, 8),
+(3, 9),
 (24, 9),
 (24, 10),
 (24, 11),
@@ -216,7 +218,7 @@ CREATE TABLE `profile` (
 
 INSERT INTO `profile` (`id`, `user_id`, `name`, `phone`) VALUES
 (1, 1, 'VS', '8 (917) 817-16-83'),
-(4, 2, 'Вася', '8 (917) 123-45-67'),
+(4, 2, 'Вася', '8 (917) 123-45-66'),
 (5, 3, 'Валера', '1234356'),
 (6, 4, 'Юрий Ногай', '8 (928) 421-92-53');
 
@@ -317,9 +319,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `role`, `auth_key`) VALUES
-(1, 'admin', '$2y$13$5lPoOl3z0EcN6MK5duNCTu9/x0wCMqHPB1FyTmTsPhZIUdDt8rxj.', 'root', 'oUBHZtM9ZBpgf-Z-AApUc8bprPjAxsgV'),
-(2, 'vasya', '$2y$13$JN20QJ74DufiBNdEXeCwJ.5FRebi5WhC1YtRDi0fh7c9YJlklCz.W', 'manager', 'spAIahxPbuC0uMcpwE22S3teWSNVZH4h'),
-(3, 'valera', '$2y$13$U0myuIYt8JDJ/rdYD1/hB.guHJkH.I5h5Slnax6RlYKuTG0ckMaKa', 'admin', '44vrxNJHXI6oESnpwl0LoEW0aZdUhU1O'),
+(1, 'admin', '$2y$13$5lPoOl3z0EcN6MK5duNCTu9/x0wCMqHPB1FyTmTsPhZIUdDt8rxj.', 'root', '_cdprN_qYyU20qsweZVDuNshcDGqcKye'),
+(2, 'vasya', '$2y$13$JN20QJ74DufiBNdEXeCwJ.5FRebi5WhC1YtRDi0fh7c9YJlklCz.W', 'manager', '9PoHMwRmRGSmC6Drj6WhlIHN25MAGoqv'),
+(3, 'valera', '$2y$13$U0myuIYt8JDJ/rdYD1/hB.guHJkH.I5h5Slnax6RlYKuTG0ckMaKa', 'admin', 'FdsY61yZVSe0NWeIXv2eaCwsN4IAmGVF'),
 (4, 'uriinogai', '$2y$13$ttQP9sf.RzUQBZArE1qgBOeAHfF58jOhvUsLSj08r7va4FeNHMniO', 'manager', NULL);
 
 --
